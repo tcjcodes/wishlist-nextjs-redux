@@ -2,7 +2,7 @@
 const actionTypePrefix = 'app/wishlist-item/';
 export const ADD_WISHLIST_ITEM = `${actionTypePrefix}ADD_WISHLIST_ITEM`;
 export const DELETE_WISHLIST_ITEM = `${actionTypePrefix}DELETE_WISHLIST_ITEM`;
-
+export const UPDATE_WISHLIST_ITEM = `${actionTypePrefix}UPDATE_WISHLIST_ITEM`;
 
 // REDUCER
 const exampleInitialState = {
@@ -11,16 +11,20 @@ const exampleInitialState = {
   description: 'Lorem ipsum dolores',
   url: 'smile.amazon.com',
   imageUrl: 'http://lorempixel.com/400/200/',
-  price: '$25.00'
+  price: '$25.00',
 };
 
-const itemReducer = (state = null, action, id) => {
+const itemReducer = (state = null, action, id = null) => {
   switch (action.type) {
     case ADD_WISHLIST_ITEM:
       return {
         id,
         ...action.payload.item,
       };
+    case UPDATE_WISHLIST_ITEM:
+      return {
+        ...action.payload.item
+      }
   }
   return state;
 };
@@ -32,9 +36,10 @@ export const addWishlistItem = (id, item) => {
     type: ADD_WISHLIST_ITEM,
     payload: {
       id,
-      item
+      item,
     },
   };
+  // TODO toggle isshowadditem on success
 };
 
 export const deleteWishlistItem = (id) => {
@@ -42,6 +47,15 @@ export const deleteWishlistItem = (id) => {
     type: DELETE_WISHLIST_ITEM,
     payload: {
       id,
+    },
+  };
+};
+
+export const editWishlistItem = (item) => {
+  return {
+    type: UPDATE_WISHLIST_ITEM,
+    payload: {
+      item,
     },
   };
 };

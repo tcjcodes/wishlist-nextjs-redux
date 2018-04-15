@@ -1,47 +1,32 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { toggleShowAddItem } from '../ducks/wishlist';
 import AddWishlistItem from './AddWishlistItem';
 import ManageWishlistItem from './ManageWishlistItem';
 
 class ManageWishlist extends Component {
   constructor(props) {
     super(props);
-
-    // TODO convert to store
-    this.state = { isShowAddItem: false };
   }
 
   onClickAddItem = () => {
-    this.toggleShowAddItem(true);
+    this.props.toggleShowAddItem(true);
   };
 
   onClickAddItemCancel = () => {
-    this.toggleShowAddItem(false);
-  };
-
-  toggleShowAddItem = (isShowAddItem) => {
-    this.setState({ isShowAddItem });
-  };
-
-  onClickItemEdit = (itemId) => {
-    console.log('edit', itemId);
-  };
-
-  onClickItemDelete = (itemId) => {
-    console.log('delete', itemId);
+    this.props.toggleShowAddItem(false);
   };
 
   render() {
     const { wishlist } = this.props;
-    const { isShowAddItem } = this.state;
     return (
       <div>
         <h1>{wishlist.name}</h1>
-        {!isShowAddItem && (
+        {!wishlist.isShowAddItem && (
           <button onClick={this.onClickAddItem}>+ Add Item</button>
         )}
-        {isShowAddItem && (
+        {wishlist.isShowAddItem && (
           <AddWishlistItem
             handleCancel={this.onClickAddItemCancel}
             wishlistId={wishlist.id}
@@ -62,10 +47,10 @@ class ManageWishlist extends Component {
   }
 }
 
-const mapStateToProps = ({ wishlist }) => {
+const mapStateToProps = ({ isShowAddItem, wishlist }) => {
   return {
     wishlist,
   };
 };
 
-export default connect(mapStateToProps)(ManageWishlist);
+export default connect(mapStateToProps, { toggleShowAddItem })(ManageWishlist);
