@@ -1,6 +1,7 @@
 // ACTION TYPES
 const actionTypePrefix = 'app/wishlist-item/';
 export const ADD_WISHLIST_ITEM = `${actionTypePrefix}ADD_WISHLIST_ITEM`;
+export const DELETE_WISHLIST_ITEM = `${actionTypePrefix}DELETE_WISHLIST_ITEM`;
 
 
 // REDUCER
@@ -32,6 +33,15 @@ export const addWishlistItem = (id, item) => {
     payload: {
       id,
       item
+    },
+  };
+};
+
+export const deleteWishlistItem = (id) => {
+  return {
+    type: DELETE_WISHLIST_ITEM,
+    payload: {
+      id,
     },
   };
 };

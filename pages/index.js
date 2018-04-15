@@ -1,10 +1,11 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
-import Wishlist from '../components/Wishlist';
-import { startClock, addCount, serverRenderHome } from '../ducks';
+import ManageWishlist from '../containers/ManageWishlist';
+import { addCount, startClock } from '../ducks';
 import { fetchWishlist } from '../ducks/wishlist';
 import initStore from '../utils/initStore';
 import withRedux from '../utils/withRedux';
+
 // import Page from '../components/Page';
 
 class Home extends React.Component {
@@ -24,7 +25,11 @@ class Home extends React.Component {
   }
 
   render() {
-    return <div><Wishlist/></div>;
+    return (
+      <div>
+        <ManageWishlist />
+      </div>
+    );
   }
 }
 

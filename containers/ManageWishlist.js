@@ -1,11 +1,14 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import AddWishlistItem from './AddWishlistItem';
-import WishlistItem from './WishlistItem';
+import ManageWishlistItem from './ManageWishlistItem';
 
-class Wishlist extends Component {
+class ManageWishlist extends Component {
   constructor(props) {
     super(props);
+
+    // TODO convert to store
     this.state = { isShowAddItem: false };
   }
 
@@ -13,12 +16,20 @@ class Wishlist extends Component {
     this.toggleShowAddItem(true);
   };
 
-  onClickCancel = () => {
+  onClickAddItemCancel = () => {
     this.toggleShowAddItem(false);
   };
 
   toggleShowAddItem = (isShowAddItem) => {
     this.setState({ isShowAddItem });
+  };
+
+  onClickItemEdit = (itemId) => {
+    console.log('edit', itemId);
+  };
+
+  onClickItemDelete = (itemId) => {
+    console.log('delete', itemId);
   };
 
   render() {
@@ -32,17 +43,22 @@ class Wishlist extends Component {
         )}
         {isShowAddItem && (
           <AddWishlistItem
-            handleCancel={this.onClickCancel}
+            handleCancel={this.onClickAddItemCancel}
             wishlistId={wishlist.id}
           />
         )}
-        {wishlist.items.map(this.renderItems)}
+        {_.map(wishlist.items, this.renderItems)}
       </div>
     );
   }
 
-  renderItems(item) {
-    return <WishlistItem key={item.id} item={item} />;
+  renderItems = (item) => {
+    return (
+      <ManageWishlistItem
+        key={item.id}
+        item={item}
+      />
+    );
   }
 }
 
@@ -52,4 +68,4 @@ const mapStateToProps = ({ wishlist }) => {
   };
 };
 
-export default connect(mapStateToProps)(Wishlist);
+export default connect(mapStateToProps)(ManageWishlist);
