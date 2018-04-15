@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Fields, Form, reduxForm } from 'redux-form';
 import _ from 'lodash';
-import { addWishlistItem } from '../ducks/wishlist';
+import { addWishlistItem } from '../ducks/wishlist-item';
 
 const FIELDS_CONFIG = {
   name: {
@@ -35,31 +35,29 @@ const FIELDS_CONFIG = {
 };
 
 
-const onSubmit = (values) => {
-  console.log('Submitting', values);
-  // const { addWishlistItem, wishlistId } = this.props;
-  // addWishlistItem(wishlistId, values);
-};
-
 class AddWishlistItem extends Component {
   constructor(props) {
     super(props);
   }
 
+  onSubmit = (values) => {
+    const { addWishlistItem, wishlistId, reset } = this.props;
+    addWishlistItem(wishlistId, values);
+    reset();
+  };
+
   render() {
     const {
       handleSubmit,
       pristine,
-      reset,
       submitting,
-      wishlistId,
       handleCancel,
     } = this.props;
     return (
       <div>
         <h2>Add New Item</h2>
         <div>
-          <Form onSubmit={handleSubmit(onSubmit)}>
+          <Form onSubmit={handleSubmit(this.onSubmit)}>
             <Fields
               names={_.keys(FIELDS_CONFIG)}
               component={this.renderFields}

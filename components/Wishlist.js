@@ -33,6 +33,7 @@ class Wishlist extends Component {
         {isShowAddItem && (
           <AddWishlistItem
             handleCancel={this.onClickCancel}
+            wishlistId={wishlist.id}
           />
         )}
         {wishlist.items.map(this.renderItems)}
@@ -41,7 +42,7 @@ class Wishlist extends Component {
   }
 
   renderItems(item) {
-    return <WishlistItem item={item} />;
+    return <WishlistItem key={item.id} item={item} />;
   }
 }
 
