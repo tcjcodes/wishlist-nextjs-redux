@@ -1,13 +1,14 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
-import { initStore, startClock, addCount, serverRenderClock } from '../store'
+import { startClock, addCount, serverRenderHome } from '../ducks'
+import initStore from '../utils/initStore';
 import withRedux from '../utils/withRedux'
 import Page from '../components/Page'
 
-class Counter extends React.Component {
+class Home extends React.Component {
   static getInitialProps ({ store, isServer }) {
     // init the redux store
-    store.dispatch(serverRenderClock(isServer))
+    store.dispatch(serverRenderHome(isServer))
     // other further actions
     store.dispatch(addCount())
 
@@ -36,4 +37,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default withRedux(initStore, null, mapDispatchToProps)(Counter)
+export default withRedux(initStore, null, mapDispatchToProps)(Home)
