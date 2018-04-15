@@ -8,6 +8,7 @@
 
 import { combineReducers } from 'redux';
 import wishlist from './wishlist';
+import { reducer as formReducer } from 'redux-form';
 
 const exampleInitialState = {
   lastUpdate: 0,
@@ -16,9 +17,8 @@ const exampleInitialState = {
 };
 
 // ACTIONS
-const ADD =  'ADD';
+const ADD = 'ADD';
 const TICK = 'TICK';
-
 
 // REDUCERS
 const reducer = (state = exampleInitialState, action) => {
@@ -38,11 +38,11 @@ const reducer = (state = exampleInitialState, action) => {
 };
 
 const rootReducer = combineReducers({
-  wishlist
+  wishlist,
+  form: formReducer,
 });
 
 export default rootReducer;
-
 
 // ACTION CREATORS
 export const serverRenderHome = (isServer) => (dispatch) => {
@@ -61,6 +61,3 @@ export const addCount = () => (dispatch) => {
 };
 
 // SIDE EFFECTS
-
-
-
