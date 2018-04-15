@@ -1,39 +1,34 @@
+/*
+* A module...
+* MUST export default a function called reducer()
+* MUST export its action creators as functions
+* MUST have action types in the form npm-module-or-app/reducer/ACTION_TYPE
+* MAY export its action types as UPPER_SNAKE_CASE, if an external reducer needs to listen for them, or if it is a published reusable library
+* */
+
+import { combineReducers } from 'redux';
+import wishlist from './wishlist';
+
 const exampleInitialState = {
   lastUpdate: 0,
   light: false,
   count: 0,
 };
 
-export const actionTypes = {
-  ADD: 'ADD',
-  TICK: 'TICK',
-};
-
 // ACTIONS
-export const serverRenderHome = (isServer) => (dispatch) => {
-  return dispatch({ type: actionTypes.TICK, light: !isServer, ts: Date.now() });
-};
+const ADD =  'ADD';
+const TICK = 'TICK';
 
-export const startClock = () => (dispatch) => {
-  return setInterval(
-    () => dispatch({ type: actionTypes.TICK, light: true, ts: Date.now() }),
-    1000
-  );
-};
-
-export const addCount = () => (dispatch) => {
-  return dispatch({ type: actionTypes.ADD });
-};
 
 // REDUCERS
 const reducer = (state = exampleInitialState, action) => {
   switch (action.type) {
-    case actionTypes.TICK:
+    case TICK:
       return Object.assign({}, state, {
         lastUpdate: action.ts,
         light: !!action.light,
       });
-    case actionTypes.ADD:
+    case ADD:
       return Object.assign({}, state, {
         count: state.count + 1,
       });
@@ -42,4 +37,30 @@ const reducer = (state = exampleInitialState, action) => {
   }
 };
 
-export default reducer;
+const rootReducer = combineReducers({
+  wishlist
+});
+
+export default rootReducer;
+
+
+// ACTION CREATORS
+export const serverRenderHome = (isServer) => (dispatch) => {
+  return dispatch({ type: TICK, light: !isServer, ts: Date.now() });
+};
+
+export const startClock = () => (dispatch) => {
+  return setInterval(
+    () => dispatch({ type: TICK, light: true, ts: Date.now() }),
+    1000
+  );
+};
+
+export const addCount = () => (dispatch) => {
+  return dispatch({ type: ADD });
+};
+
+// SIDE EFFECTS
+
+
+
