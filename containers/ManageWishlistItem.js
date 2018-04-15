@@ -28,6 +28,10 @@ class ManageWishlistItem extends Component {
           handleDelete={this.handleClickDelete}
           handleEdit={this.handleClickEdit}
         />
+        <div>
+          <button onClick={this.handleClickEdit}>Edit</button>
+          <button onClick={this.handleClickDelete}>Delete</button>
+        </div>
       </div>
     );
   }
