@@ -39,7 +39,6 @@ export const addWishlistItem = (id, item) => {
       item,
     },
   };
-  // TODO toggle isshowadditem on success
 };
 
 export const deleteWishlistItem = (id) => {
@@ -51,10 +50,11 @@ export const deleteWishlistItem = (id) => {
   };
 };
 
-export const editWishlistItem = (item) => {
+export const updateWishlistItem = (wishlistId, item) => {
   return {
     type: UPDATE_WISHLIST_ITEM,
     payload: {
+      wishlistId,
       item,
     },
   };

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import WishlistItem from '../components/WishlistItem';
+import { startEditingWishlistItem } from '../ducks/wishlist';
 import { deleteWishlistItem } from '../ducks/wishlist-item';
 
 class ManageWishlistItem extends Component {
@@ -9,8 +10,7 @@ class ManageWishlistItem extends Component {
   }
 
   handleClickEdit = () => {
-    // this.props.handleEdit(this.props.item.id);
-    console.log('editing', this.props.item.id);
+    this.props.startEditingWishlistItem(this.props.item.id);
   };
 
   handleClickDelete = () => {
@@ -31,4 +31,4 @@ class ManageWishlistItem extends Component {
   }
 }
 
-export default connect(null, { deleteWishlistItem })(ManageWishlistItem);
+export default connect(null, { deleteWishlistItem, startEditingWishlistItem })(ManageWishlistItem);

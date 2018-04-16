@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Fields, Form, reduxForm } from 'redux-form';
 import _ from 'lodash';
-import { addWishlistItem } from '../ducks/wishlist-item';
+import { getEditingItem } from '../ducks/wishlist';
+import { addWishlistItem, updateWishlistItem } from '../ducks/wishlist-item';
 
 const FIELDS_CONFIG = {
   name: {
@@ -34,25 +35,27 @@ const FIELDS_CONFIG = {
   },
 };
 
-
-class AddWishlistItem extends Component {
+class WishlistItemForm extends Component {
   constructor(props) {
     super(props);
   }
 
   onSubmit = (values) => {
-    const { addWishlistItem, wishlistId, reset } = this.props;
-    addWishlistItem(wishlistId, values);
+    const {
+      wishlistId,
+      reset,
+      editing,
+    } = this.props;
+    if (editing) {
+      this.props.updateWishlistItem(wishlistId, values);
+    } else {
+      this.props.addWishlistItem(wishlistId, values);
+    }
     reset();
   };
 
   render() {
-    const {
-      handleSubmit,
-      pristine,
-      submitting,
-      handleCancel,
-    } = this.props;
+    const { handleSubmit, pristine, submitting, handleCancel } = this.props;
     return (
       <div>
         <h2>Add New Item</h2>
@@ -62,10 +65,7 @@ class AddWishlistItem extends Component {
               names={_.keys(FIELDS_CONFIG)}
               component={this.renderFields}
             />
-            <button
-              type="submit"
-              disabled={pristine || submitting}
-            >
+            <button type="submit" disabled={pristine || submitting}>
               Submit
             </button>
             <button type="button" onClick={handleCancel}>
@@ -116,9 +116,21 @@ const validate = (values) => {
     }, {});
 };
 
-export default connect(null, { addWishlistItem })(
+const mapStateToProps = (state) => {
+  const editingItem = getEditingItem(state);
+  return {
+    initialValues: editingItem,
+    editing: !!editingItem,
+  };
+};
+
+export default connect(mapStateToProps, {
+  addWishlistItem,
+  updateWishlistItem,
+})(
   reduxForm({
     form: 'addWishlistItem',
     validate,
-  })(AddWishlistItem)
+    enableReinitialize: true,
+  })(WishlistItemForm)
 );
