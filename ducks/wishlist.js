@@ -6,7 +6,7 @@ import itemReducer, {
   DELETE_WISHLIST_ITEM,
   UPDATE_WISHLIST_ITEM,
   updateWishlistItem,
-} from './wishlist-item';
+} from './wishlist-items';
 
 const actionTypePrefix = 'app/wishlist/';
 const FETCH_WISHLIST = `${actionTypePrefix}FETCH_WISHLIST`;

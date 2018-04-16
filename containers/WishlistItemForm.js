@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Fields, Form, reduxForm } from 'redux-form';
 import _ from 'lodash';
 import { getEditingItem, toggleShowEditingItem } from '../ducks/wishlist';
-import { addWishlistItem, updateWishlistItem } from '../ducks/wishlist-item';
+import { addWishlistItem, updateWishlistItem } from '../ducks/wishlist-items';
 
 const FIELDS_CONFIG = {
   name: {

@@ -1,5 +1,5 @@
 // ACTION TYPES
-const actionTypePrefix = 'app/wishlist-item/';
+const actionTypePrefix = 'app/wishlist-items/';
 export const ADD_WISHLIST_ITEM = `${actionTypePrefix}ADD_WISHLIST_ITEM`;
 export const DELETE_WISHLIST_ITEM = `${actionTypePrefix}DELETE_WISHLIST_ITEM`;
 export const UPDATE_WISHLIST_ITEM = `${actionTypePrefix}UPDATE_WISHLIST_ITEM`;

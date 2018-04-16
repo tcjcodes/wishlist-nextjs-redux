@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import WishlistItem from '../components/WishlistItem';
 import { startEditingWishlistItem } from '../ducks/wishlist';
-import { deleteWishlistItem } from '../ducks/wishlist-item';
+import { deleteWishlistItem } from '../ducks/wishlist-items';
 
 class ManageWishlistItem extends Component {
   constructor(props) {
