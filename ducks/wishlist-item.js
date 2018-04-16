@@ -6,27 +6,38 @@ export const UPDATE_WISHLIST_ITEM = `${actionTypePrefix}UPDATE_WISHLIST_ITEM`;
 
 // REDUCER
 const exampleInitialState = {
-  id: '[user].W001.0',
-  name: 'First Item',
-  description: 'Lorem ipsum dolores',
-  url: 'smile.amazon.com',
-  imageUrl: 'http://lorempixel.com/400/200/',
-  price: '$25.00',
+  '[user].W001.0': {
+    id: '[user].W001.0',
+    name: 'First Item',
+    description: 'Lorem ipsum dolores',
+    url: 'smile.amazon.com',
+    imageUrl: 'http://lorempixel.com/400/200/',
+    price: '$25.00',
+  },
 };
 
-const itemReducer = (state = null, action, id = null) => {
+const itemReducer = (itemsState = exampleInitialState, action, id = null) => {
   switch (action.type) {
     case ADD_WISHLIST_ITEM:
       return {
-        id,
-        ...action.payload.item,
+        ...itemsState,
+        [id]: {
+          id,
+          ...action.payload.item,
+        },
       };
     case UPDATE_WISHLIST_ITEM:
+      const item = itemsState[action.payload.item.id];
       return {
-        ...action.payload.item
-      }
+        ...itemsState,
+        [item.id]: {
+          ...action.payload.item,
+        },
+      };
+    case DELETE_WISHLIST_ITEM:
+      return _.filter(itemsState, (item) => item.id !== action.payload.id);
   }
-  return state;
+  return itemsState;
 };
 export default itemReducer;
 
@@ -35,7 +46,7 @@ export const addWishlistItem = (id, item) => {
   return {
     type: ADD_WISHLIST_ITEM,
     payload: {
-      id,
+      id, //FIXME rename to wishlistId
       item,
     },
   };
@@ -45,7 +56,7 @@ export const deleteWishlistItem = (id) => {
   return {
     type: DELETE_WISHLIST_ITEM,
     payload: {
-      id,
+      id, //FIXME rename to itemId
     },
   };
 };

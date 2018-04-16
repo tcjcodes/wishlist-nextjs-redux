@@ -5,6 +5,7 @@ import itemReducer, {
   ADD_WISHLIST_ITEM,
   DELETE_WISHLIST_ITEM,
   UPDATE_WISHLIST_ITEM,
+  updateWishlistItem,
 } from './wishlist-item';
 
 const actionTypePrefix = 'app/wishlist/';
@@ -49,27 +50,18 @@ const reducer = (state = initialState, action) => {
       };
     }
 
-    // TODO move to wishlist-item
     case ADD_WISHLIST_ITEM:
       const itemId = `${state.id}.${state.nextItemIdNumber}`;
       return {
         ...state,
         nextItemIdNumber: state.nextItemIdNumber + 1,
-        items: { ...state.items, [itemId]: itemReducer(null, action, itemId) },
+        items: itemReducer(state.items, action, itemId),
       };
     case UPDATE_WISHLIST_ITEM:
-      const item = state.items[action.payload.item.id];
-      return {
-        ...state,
-        items: {
-          ...state.items,
-          [item.id]: itemReducer(item, action),
-        },
-      };
     case DELETE_WISHLIST_ITEM:
       return {
         ...state,
-        items: _.filter(state.items, (item) => item.id !== action.payload.id),
+        items: itemReducer(state.items, action),
       };
   }
   return state;
@@ -112,7 +104,6 @@ export const startEditingWishlistItem = (itemId) => {
     dispatch(toggleShowEditingItem(true));
   };
 };
-
 // MIDDLEWARE
 
 // SELECTORS

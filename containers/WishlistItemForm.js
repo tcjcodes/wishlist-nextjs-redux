@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Fields, Form, reduxForm } from 'redux-form';
 import _ from 'lodash';
-import { getEditingItem } from '../ducks/wishlist';
+import { getEditingItem, toggleShowEditingItem } from '../ducks/wishlist';
 import { addWishlistItem, updateWishlistItem } from '../ducks/wishlist-item';
 
 const FIELDS_CONFIG = {
@@ -41,13 +41,10 @@ class WishlistItemForm extends Component {
   }
 
   onSubmit = (values) => {
-    const {
-      wishlistId,
-      reset,
-      editing,
-    } = this.props;
+    const { wishlistId, reset, editing } = this.props;
     if (editing) {
       this.props.updateWishlistItem(wishlistId, values);
+      this.props.toggleShowEditingItem(false);
     } else {
       this.props.addWishlistItem(wishlistId, values);
     }
@@ -127,6 +124,7 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
   addWishlistItem,
   updateWishlistItem,
+  toggleShowEditingItem,
 })(
   reduxForm({
     form: 'addWishlistItem',
