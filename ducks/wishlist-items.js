@@ -5,18 +5,9 @@ export const DELETE_WISHLIST_ITEM = `${actionTypePrefix}DELETE_WISHLIST_ITEM`;
 export const UPDATE_WISHLIST_ITEM = `${actionTypePrefix}UPDATE_WISHLIST_ITEM`;
 
 // REDUCER
-const exampleInitialState = {
-  '[user].W001.0': {
-    id: '[user].W001.0',
-    name: 'First Item',
-    description: 'Lorem ipsum dolores',
-    url: 'smile.amazon.com',
-    imageUrl: 'http://lorempixel.com/400/200/',
-    price: '$25.00',
-  },
-};
+const initialState = {};
 
-const itemReducer = (itemsState = exampleInitialState, action, id = null) => {
+const itemReducer = (itemsState = initialState, action, id = null) => {
   switch (action.type) {
     case ADD_WISHLIST_ITEM:
       return {

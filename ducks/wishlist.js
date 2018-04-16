@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 
 // ACTION TYPES
-import itemReducer, {
+import itemsReducer, {
   ADD_WISHLIST_ITEM,
   DELETE_WISHLIST_ITEM,
   UPDATE_WISHLIST_ITEM,
@@ -55,13 +55,13 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         nextItemIdNumber: state.nextItemIdNumber + 1,
-        items: itemReducer(state.items, action, itemId),
+        items: itemsReducer(state.items, action, itemId),
       };
     case UPDATE_WISHLIST_ITEM:
     case DELETE_WISHLIST_ITEM:
       return {
         ...state,
-        items: itemReducer(state.items, action),
+        items: itemsReducer(state.items, action),
       };
   }
   return state;
